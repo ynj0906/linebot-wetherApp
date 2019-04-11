@@ -124,7 +124,7 @@ from os import environ
 HOSTNAME = gethostname()
 
 if 'DESKTOP' in HOSTNAME:
-from . import local_settings
+    from . import local_settings
     SECRET_KEY = local_settings.SECRET_KEY
 else:
     SECRET_KEY = environ['SECRET_KEY']
