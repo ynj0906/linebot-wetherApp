@@ -16,19 +16,19 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import LineBotApiError
 from django.views.decorators.csrf import csrf_exempt
 
-channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
+#channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
 channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
-if channel_secret is None:
-    print('Specify LINE_CHANNEL_SECRET as environment variable.')
-
-    sys.exit(1)
+# if channel_secret is None:
+#     print('Specify LINE_CHANNEL_SECRET as environment variable.')
+#
+#     sys.exit(1)
 
 if channel_access_token is None:
     print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
     sys.exit(1)
 
 line_bot_api = LineBotApi(channel_access_token)
-handler = WebhookHandler(channel_secret)
+# handler = WebhookHandler(channel_secret)
 
 
 
@@ -46,7 +46,7 @@ hello = Hello.as_view()
 
 key = os.getenv('key', None)
 
-@handler.add(MessageEvent, message=TextMessage)
+# @handler.add(MessageEvent, message=TextMessage)
 class Sample(View):
     def get(self,event,request):
         weather_data = []
@@ -79,7 +79,7 @@ class Sample(View):
 sample = Sample.as_view()
 
 
-@handler.add(MessageEvent, message=TextMessage)
+# @handler.add(MessageEvent, message=TextMessage)
 def handle_push_message(event):
     profile = line_bot_api.get_profile(event.source.user_id)
     try:
