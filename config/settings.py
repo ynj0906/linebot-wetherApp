@@ -20,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')9pmsdpj0xtf@1$1x7z9l8dojt46nxi85$=%tdtj2+iz2-$fzp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -119,3 +118,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#環境変数を別ファイルに分けるために追加
+from socket import gethostname
+from os import environ
+HOSTNAME = gethostname()
+
+if 'DESKTOP' in HOSTNAME:
+from . import local_settings
+    SECRET_KEY = local_settings.SECRET_KEY
+else:
+    SECRET_KEY = environ['SECRET_KEY']
