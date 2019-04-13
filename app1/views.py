@@ -80,12 +80,11 @@ sample = Sample.as_view()
 
 
 # @handler.add(MessageEvent, message=TextMessage)
-def handle_push_message(event):
-    profile = line_bot_api.get_profile(event.source.user_id)
+def handle_push_message():
     try:
-        line_bot_api.push_message(profile, TextSendMessage(text='Hello World!'))
+        line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920", TextSendMessage(text='Hello World?'))
     except LineBotApiError as e:
-        print(e)
+        return e
 
         # error handle
         ...
