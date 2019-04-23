@@ -72,7 +72,8 @@ class Command(BaseCommand):
                     d[k]["天気情報"] = "晴れ"
                     final_list.append(d)
         # if day.date() == g and re.match(r"8\d\d", str(final_list[0][day]["天気情報"])):
-        print(response)
+        print(final_list)
+        print(flag)
         if flag >= 1:
             try:
                 line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920",

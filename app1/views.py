@@ -45,7 +45,7 @@ class Hello(View):
 hello = Hello.as_view()
 
 # key = os.getenv('key', None)
-key= "b435cd2cb9e26119846645c5f78f9140"
+
 
 # @handler.add(MessageEvent, message=TextMessage)
 class Sample(View):

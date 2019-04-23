@@ -4,7 +4,6 @@ from linebot.models import MessageEvent, TextMessage, FollowEvent, UnfollowEvent
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import LineBotApiError
 
-LINE_CHANNEL_ACCESS_TOKEN="1vkqQDUdxaa6WOh3WdPCsHwcKvPvP4aYHFPYTZJl0dNIlYmUdZW7/cGfJ+KjYzlkOqb0KoU31j0uNtOcs1uCd+Mx2mJ5GtFuWpOkBfTgIXo5heRP3FBZ1GFQiCVQsElHHMM56YZLU779Xdknw0JXigdB04t89/1O/w1cDnyilFU="
 if LINE_CHANNEL_ACCESS_TOKEN is None:
     print(1)
     sys.exit(1)
