@@ -17,18 +17,18 @@ from linebot.exceptions import LineBotApiError
 from django.views.decorators.csrf import csrf_exempt
 
 #channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
-channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
-# if channel_secret is None:
-#     print('Specify LINE_CHANNEL_SECRET as environment variable.')
+#channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+# # if channel_secret is None:
+# #     print('Specify LINE_CHANNEL_SECRET as environment variable.')
+# #
+# #     sys.exit(1)
 #
-#     sys.exit(1)
-
-if channel_access_token is None:
-    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
-    sys.exit(1)
-
-line_bot_api = LineBotApi(channel_access_token)
-# handler = WebhookHandler(channel_secret)
+#if channel_access_token is None:
+#    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
+#    sys.exit(1)
+#
+#line_bot_api = LineBotApi(channel_access_token)
+# # handler = WebhookHandler(channel_secret)
 
 
 
@@ -44,12 +44,13 @@ class Hello(View):
 
 hello = Hello.as_view()
 
-key = os.getenv('key', None)
+# key = os.getenv('key', None)
+key= "b435cd2cb9e26119846645c5f78f9140"
 
 # @handler.add(MessageEvent, message=TextMessage)
 class Sample(View):
-    def get(self,event,request):
-        weather_data = []
+    def get(self,request):
+        weather_data = {}
 
         BASE_URL = "http://api.openweathermap.org/data/2.5/forecast?id={}&APPID={}"
         url = BASE_URL.format(1853909, key)
@@ -63,29 +64,29 @@ class Sample(View):
                 "jsonText":i["weather"][0]["id"],
                 "date_data" :i["dt_txt"]
             }
-        # weather_data.append(weather)
+            weather_data.update(a)
         # context = {'weather_data': weather_data}
+        #
+        # profile = line_bot_api.get_profile(event.source.user_id)
+        #
+        # try:
+        #     line_bot_api.push_message(profile, TextSendMessage(text='Hello World!'))
+        # except LineBotApiError as e:
+        #     print(e)
 
-        profile = line_bot_api.get_profile(event.source.user_id)
-
-        try:
-            line_bot_api.push_message(profile, TextSendMessage(text='Hello World!'))
-        except LineBotApiError as e:
-            print(e)
-
-        return TemplateResponse(request,"app1/sample.html",a)
+        return TemplateResponse(request,"app1/sample.html",weather_data)
 
 
 sample = Sample.as_view()
 
 
 # @handler.add(MessageEvent, message=TextMessage)
-def handle_push_message():
-    try:
-        line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920", TextSendMessage(text='Hello World?'))
-    except LineBotApiError as e:
-        return e
-
-        # error handle
-        ...
-
+# def handle_push_message():
+#     try:
+#         line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920", TextSendMessage(text='Hello World?'))
+#     except LineBotApiError as e:
+#         return e
+#
+#         # error handle
+#         ...
+#

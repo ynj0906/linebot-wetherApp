@@ -127,4 +127,4 @@ if 'DESKTOP' in HOSTNAME:
     from . import local_settings
     SECRET_KEY = local_settings.SECRET_KEY
 else:
-    SECRET_KEY = environ['SECRET_KEY']
+    SECRET_KEY = environ['Django_SECRET_KEY']
