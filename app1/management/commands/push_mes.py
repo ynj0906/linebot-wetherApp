@@ -28,7 +28,7 @@ else:
 # if LINE_CHANNEL_ACCESS_TOKEN is None:
 #     print(1)
 #     sys.exit(1)
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+line_bot_api = LineBotApi(channel_access_token)
 
 class Command(BaseCommand):
     help = 'ここにコマンドの説明を書けます。'
