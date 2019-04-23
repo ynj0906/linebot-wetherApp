@@ -19,11 +19,11 @@ if 'DESKTOP' in HOSTNAME:
     current_dir = pathlib.Path(__file__).resolve().parent
     sys.path.append(str(current_dir) + '/..../')
     from config import local_settings
-    LINE_CHANNEL_ACCESS_TOKEN = local_settings.LINE_CHANNEL_ACCESS_TOKEN
+    channel_access_token = local_settings.LINE_CHANNEL_ACCESS_TOKEN
     weather_key = local_settings.weather_key
 else:
     channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
-    weather_key = os.getenv('key', None)
+    weather_key = os.getenv('weather_key', None)
 
 # if LINE_CHANNEL_ACCESS_TOKEN is None:
 #     print(1)
@@ -72,8 +72,7 @@ class Command(BaseCommand):
                     d[k]["天気情報"] = "晴れ"
                     final_list.append(d)
         # if day.date() == g and re.match(r"8\d\d", str(final_list[0][day]["天気情報"])):
-        print(final_list)
-        print(flag)
+        print(response)
         if flag >= 1:
             try:
                 line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920",
