@@ -72,6 +72,7 @@ class Command(BaseCommand):
                     d[k]["天気情報"] = "晴れ"
                     final_list.append(d)
         # if day.date() == g and re.match(r"8\d\d", str(final_list[0][day]["天気情報"])):
+        print(d)
         print(final_list)
         print(flag)
         if flag >= 1:
@@ -83,16 +84,16 @@ class Command(BaseCommand):
                                                                 "{}は{}です\n"
                                                                 "{}は{}です\n"
                                                                 "{}は{}です"
-                                                           .format(final_list[0][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[0][datetime.date.today()]["天気情報"],
-                                                                   final_list[1][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[1][datetime.date.today()]["天気情報"],
-                                                                   final_list[2][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[2][datetime.date.today()]["天気情報"],
-                                                                   final_list[3][datetime.date.today()]["天気時間"][10:],
+                                                           .format(final_list[3][datetime.date.today()]["天気時間"][10:],
                                                                    final_list[3][datetime.date.today()]["天気情報"],
                                                                    final_list[4][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[4][datetime.date.today()]["天気情報"]
+                                                                   final_list[4][datetime.date.today()]["天気情報"],
+                                                                   final_list[5][datetime.date.today()]["天気時間"][10:],
+                                                                   final_list[5][datetime.date.today()]["天気情報"],
+                                                                   final_list[6][datetime.date.today()]["天気時間"][10:],
+                                                                   final_list[6][datetime.date.today()]["天気情報"],
+                                                                   final_list[7][datetime.date.today()]["天気時間"][10:],
+                                                                   final_list[7][datetime.date.today()]["天気情報"]
                                                                    ))])
             except LineBotApiError as e:
                 return e
