@@ -73,7 +73,7 @@ class Command(BaseCommand):
                     final_list.append(d)
             print(d)
         # if day.date() == g and re.match(r"8\d\d", str(final_list[0][day]["天気情報"])):
-
+        print(g)
         print(final_list)
         print(flag)
         if flag >= 1:
