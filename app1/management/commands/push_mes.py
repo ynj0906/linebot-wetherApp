@@ -1,10 +1,10 @@
-import sys,os,requests,re
+import sys,os,requests,re,pytz
 from django.core.management import BaseCommand
 from linebot.models import MessageEvent, TextMessage, FollowEvent, UnfollowEvent,TextSendMessage, ImageMessage, AudioMessage
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import LineBotApiError
-from datetime import date
-import datetime
+from datetime import datetime
+# import datetime
 import pathlib
 from socket import gethostname
 from os import environ
@@ -47,58 +47,74 @@ class Command(BaseCommand):
 
         ymd_list.clear()
         weathercode_list.clear()
-        g = date.today()
+        today = datetime.today().astimezone(pytz.timezone('Asia/Tokyo')).date()
         #天気情報とt天気時間をそれぞれのリストに追加
         for i in response["list"]:
             weathercode_list.append(i["weather"][0]["id"])
-            ymd_list.append(i["dt_txt"])
+            ymd_list.append(i["dt"])
         #それぞれのリストからペアにして辞書型に追加
         # d = {k: {"天気情報": v1, "天気時間": v2} for k , v1, v2 in zip(ymd_list, weathercode_list, ymd_list)}
         final_list=[]
+        aaa=[""]
         final_list.clear()
         flag=0
+        print(i)
 
         for k , v1, v2 in zip(ymd_list, weathercode_list, ymd_list):
-            k = datetime.datetime.strptime(k, '%Y-%m-%d %H:%M:%S')
-            k=k.date()
-            day = datetime.datetime.strptime(v2, '%Y-%m-%d %H:%M:%S')
+            #k = datetime.datetime.strptime(k, '%Y-%m-%d %H:%M:%S')
+            v2 = datetime.fromtimestamp(v2, tz=pytz.timezone('Asia/Tokyo'))
+            # k=k.date()
+
             d = {k: {"天気情報": v1, "天気時間": v2}}
-            if day.date() == g:
+            if v2.date() == today:
                 if re.match(r"5\d\d", str(d[k]["天気情報"])):
                     d[k]["天気情報"]="雨"
                     flag+=1
-                    final_list.append(d)
+                    final_list.append("{}は{}".format(v2.time(),d[k]["天気情報"]))
                 elif re.match(r"8\d\d", str(d[k]["天気情報"])):
                     d[k]["天気情報"] = "晴れ"
-                    final_list.append(d)
-            print(d)
+                    final_list.append("{}は{}".format(v2.time(), d[k]["天気情報"]))
+            print(v1)
+            print(v2)
         # if day.date() == g and re.match(r"8\d\d", str(final_list[0][day]["天気情報"])):
-
+        print(v2.time())
+        print(today)
         print(final_list)
         print(flag)
+
         if flag >= 1:
             try:
                 line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920",
                                           [TextSendMessage(text="今日は雨やで！\uDBC0\uDCAA"),
-                                           TextSendMessage(text="{}は{}です\n"
-                                                                "{}は{}です\n"
-                                                                "{}は{}です\n"
-                                                                "{}は{}です\n"
-                                                                "{}は{}です"
-                                                           .format(final_list[3][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[3][datetime.date.today()]["天気情報"],
-                                                                   final_list[4][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[4][datetime.date.today()]["天気情報"],
-                                                                   final_list[5][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[5][datetime.date.today()]["天気情報"],
-                                                                   final_list[6][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[6][datetime.date.today()]["天気情報"],
-                                                                   final_list[7][datetime.date.today()]["天気時間"][10:],
-                                                                   final_list[7][datetime.date.today()]["天気情報"]
+                                           TextSendMessage(text="{}です\n"
+                                                                "{}です\n"
+                                                                "{}です\n"
+                                                                "{}です\n"
+                                                                "{}です"
+                                                           .format(final_list[3],
+                                                                   final_list[4],
+                                                                   final_list[5],
+                                                                   final_list[6],
+                                                                   final_list[7]
                                                                    ))])
             except LineBotApiError as e:
                 return e
         else:
+            line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920",
+                                      [TextSendMessage(text="今日は晴れやで！\uDBC0\uDCAA"),
+                                       TextSendMessage(text="{}です\n"
+                                                            "{}です\n"
+                                                            "{}です\n"
+                                                            "{}です\n"
+                                                            "{}です"
+                                                       .format(final_list[3],
+                                                               final_list[4],
+                                                               final_list[5],
+                                                               final_list[6],
+                                                               final_list[7]
+                                                               ))])
             pass
             # line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920",
-            #                       TextSendMessage(text="いってらっしゃい{}\n{}".format(d[i]["天気時間"],d[i]["天気情報"])))
+            #                      TextSendMessage(text="いってらっしゃい{}\n{}".format(d[i]["天気時間"],d[i]["天気情報"])))
+
+
