@@ -55,7 +55,6 @@ class Command(BaseCommand):
         #それぞれのリストからペアにして辞書型に追加
         # d = {k: {"天気情報": v1, "天気時間": v2} for k , v1, v2 in zip(ymd_list, weathercode_list, ymd_list)}
         final_list=[]
-        aaa=[""]
         final_list.clear()
         flag=0
         print(i)
@@ -79,6 +78,7 @@ class Command(BaseCommand):
         # if day.date() == g and re.match(r"8\d\d", str(final_list[0][day]["天気情報"])):
         print(v2.time())
         print(today)
+
         print(final_list)
         print(flag)
 
