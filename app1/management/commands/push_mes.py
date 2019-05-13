@@ -91,11 +91,11 @@ class Command(BaseCommand):
                                                                 "{}です\n"
                                                                 "{}です\n"
                                                                 "{}です"
-                                                           .format(final_list[3],
-                                                                   final_list[4],
-                                                                   final_list[5],
-                                                                   final_list[6],
-                                                                   final_list[7]
+                                                           .format(final_list[0],
+                                                                   final_list[1],
+                                                                   final_list[2],
+                                                                   final_list[3],
+                                                                   final_list[4]
                                                                    ))])
             except LineBotApiError as e:
                 return e
@@ -107,13 +107,12 @@ class Command(BaseCommand):
                                                             "{}です\n"
                                                             "{}です\n"
                                                             "{}です"
-                                                       .format(final_list[3],
-                                                               final_list[4],
-                                                               final_list[5],
-                                                               final_list[6],
-                                                               final_list[7]
+                                                       .format(final_list[0],
+                                                               final_list[1],
+                                                               final_list[2],
+                                                               final_list[3],
+                                                               final_list[4]
                                                                ))])
-            pass
             # line_bot_api.push_message("Uc148172028f01d4635bdb232e6b00920",
             #                      TextSendMessage(text="いってらっしゃい{}\n{}".format(d[i]["天気時間"],d[i]["天気情報"])))
 
